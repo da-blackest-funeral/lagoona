@@ -64,8 +64,8 @@ class User {
         session_destroy(); //Уничтожаем
     }
 
-    public function passwordReset() {
-        
-
-    }
+//    public function passwordReset() {
+//
+//
+//    }
 }
