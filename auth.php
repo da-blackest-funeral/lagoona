@@ -22,95 +22,64 @@ if (isset($_POST['new_password'])) {
     }
 }
 
-if (isset($user->password) && $user->auth($userRealPassword) ) {
-        header("Location: index.php");
+if (isset($user->password) && $user->auth($userRealPassword)) {
+    header("Location: index.php");
 }
 
-?>
+require_once $_SERVER['DOCUMENT_ROOT'] . '/templates/auth/top.html';
 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" href="css/auth.css"/>
-    <title>Authentication</title>
-</head>
-<body>
-<main class="main">
-    <div class="form__container">
-        <form action="auth.php" method="post">
-            <div class="imgcontainer">
-                <img src="img/img_avatar2.png" alt="Avatar" class="avatar"/>
-            </div>
+if (isset($_POST['login'])) {
+    if (!$db->checkExistingUser($_POST['login'])) { ?>
+        <br><strong>Неверный логин!</strong><br>
+    <?php }
+} ?>
 
-            <div class="container">
-                <label for="login">
-                    <b> Login </b>
-                </label>
-                <input
-                        type="text"
-                        placeholder="Enter Login"
-                        name="login"
-                        required
-                />
+<label for="psw">
+    <b>
+        <?php
+        if (isset($_GET['update_password'])) {
+            echo 'Old password';
+        } else {
+            echo 'Enter password';
+        } ?>
+    </b>
+</label>
+<input
+        type="password"
+        placeholder="<?php
+        if (isset($_GET['update_password'])) {
+            echo 'Enter Old password';
+        } else {
+            echo 'Enter password';
+        } ?>"
+        name="password"
+        required
+/>
 
-                <?php
-                if (isset($_POST['login'])) {
-                if (!$db->checkExistingUser($_POST['login'])) { ?>
-                <br><strong>Неверный логин!<strong/><br>
-                    <?php }
-                    } ?>
+<?php
+if (isset($_GET['update_password'])) { ?>
+    <b> New Password </b>
+    <input
+            type="password"
+            placeholder="Enter New Password"
+            name="new_password"
+            required/>
 
-                    <label for="psw">
-                        <b>
-                            <?php
-                            if (isset($_GET['update_password'])) {
-                                echo 'Old password';
-                            } else {
-                                echo 'Enter password';
-                            } ?>
-                        </b>
-                    </label>
-                    <input
-                            type="password"
-                            placeholder="<?php
-                            if (isset($_GET['update_password'])) {
-                                echo 'Enter Old password';
-                            } else {
-                                echo 'Enter password';
-                            } ?>"
-                            name="password"
-                            required
-                    />
+    <?php
+    if (!$user->isAuth()) { ?>
+        <br>
+        <b>Неверный пароль!</b>
+    <?php }
+}
 
-                    <?php
-                    if (isset($_GET['update_password'])) { ?>
-                        <b> New Password </b>
-                        <input
-                                type="password"
-                                placeholder="Enter New Password"
-                                name="new_password"
-                                required/>
+require_once $_SERVER['DOCUMENT_ROOT'] . '/templates/auth/buttons.html';
 
-                    <?php
-                        if (!$user->isAuth()) { ?>
-                        <br>
-                        <b>Неверный пароль!</b>
-                    <?php }
-                    } ?>
+if (!isset($_GET['update_password'])) { ?>
+    <a href="?update_password=true"> Forgot password? </a>
+<?php } ?>
 
-                    <button type="submit">Login</button>
-            </div>
-            <div class="container" style="background-color: #f1f1f1">
-                <button type="button"
-                        class="cancelbtn"
-                        onclick="location.href='index.php'">Cancel
-                </button>
-                <?php if (!isset($_GET['update_password'])) { ?>
-                    <a href="?update_password=true"> Forgot password? </a>
-                <?php } ?>
-            </div>
-        </form>
+</div>
+</form>
 </main>
 </body>
 </html>

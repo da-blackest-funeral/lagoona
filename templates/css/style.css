@@ -3,7 +3,7 @@
 @font-face {
   font-family: "Muller";
   src: url("../fonts/MullerBold.woff") format("woff2"),
-  url("../fonts/MullerBold.woff") format("woff");
+    url("../fonts/MullerBold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -12,7 +12,7 @@
 @font-face {
   font-family: "Muller";
   src: url("../fonts/MullerLight.woff2") format("woff2"),
-  url("../fonts/MullerLight.woff") format("woff");
+    url("../fonts/MullerLight.woff") format("woff");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -21,7 +21,7 @@
 @font-face {
   font-family: "Muller";
   src: url("/fonts/MullerBold.woff2") format("woff2"),
-  url("../fonts/MullerBold.woff") format("woff");
+    url("../fonts/MullerBold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -30,7 +30,7 @@
 @font-face {
   font-family: "Muller";
   src: url("../fonts/MullerLight.woff2") format("woff2"),
-  url("../fonts/MullerLight.woff") format("woff");
+    url("../fonts/MullerLight.woff") format("woff");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -39,7 +39,7 @@
 @font-face {
   font-family: "Muller";
   src: url("../fonts/MullerRegular.woff2") format("woff2"),
-  url("../fonts/MullerRegular.woff") format("woff");
+    url("../fonts/MullerRegular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -48,7 +48,7 @@
 @font-face {
   font-family: "Muller";
   src: url("../fonts/MullerMedium.woff2") format("woff2"),
-  url("../fonts/MullerMedium.woff") format("woff");
+    url("../fonts/MullerMedium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -57,7 +57,7 @@
 @font-face {
   font-family: "Muller";
   src: url("../fonts/MullerRegular.woff2") format("woff2"),
-  url("../fonts/MullerRegular.woff") format("woff");
+    url("../fonts/MullerRegular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -66,7 +66,7 @@
 @font-face {
   font-family: "Muller";
   src: url("../fonts/MullerMedium.woff2") format("woff2"),
-  url("../fonts/MullerMedium.woff") format("woff");
+    url("../fonts/MullerMedium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -326,22 +326,22 @@ html {
   display: flex;
   flex-direction: column;
   background-image: linear-gradient(
-          90deg,
-          rgba(48, 64, 89, 0.84) -2.9%,
-          rgba(53, 65, 83, 0) 65.7%
-  ),
-  url("../img/maldivi.jpg");
+      90deg,
+      rgba(48, 64, 89, 0.84) -2.9%,
+      rgba(53, 65, 83, 0) 65.7%
+    ),
+    url("../img/maldivi.jpg");
 }
 
 .section-offer-item-krit {
   display: flex;
   flex-direction: column;
   background-image: linear-gradient(
-          90deg,
-          rgba(48, 64, 89, 0.84) -2.9%,
-          rgba(53, 65, 83, 0) 65.7%
-  ),
-  url("../img/krit.jpg");
+      90deg,
+      rgba(48, 64, 89, 0.84) -2.9%,
+      rgba(53, 65, 83, 0) 65.7%
+    ),
+    url("../img/krit.jpg");
 }
 
 .section-offer-item-big {
