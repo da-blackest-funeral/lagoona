@@ -1,7 +1,6 @@
 <?php
 require_once dirname(__FILE__) . '/classes/User.php';
 require_once dirname(__FILE__) . '/classes/Database.php';
-require_once dirname(__FILE__) . '/classes/Printer.php';
 
 $db = new Db();
 $user = new User();
@@ -27,25 +26,57 @@ if (isset($user->password) && $user->auth($userRealPassword)) {
     header("Location: index.php");
 }
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/lagona/templates/auth/top.html';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/templates/auth/top.html';
 
 if (isset($_POST['login'])) {
-    if (!$db->checkExistingUser($_POST['login'])) {
-        Printer::wrongLogin();
-    }
-}
-
-Printer::passwordInput();
-
-if (isset($_POST['password'])) {
-    Printer::wrongPassword();
-}
-
-require_once $_SERVER['DOCUMENT_ROOT'] . '/lagona/templates/auth/buttons.html';
-
-if (!isset($_GET['update_password'])) {
-    Printer::forgotPassword();
+    if (!$db->checkExistingUser($_POST['login'])) { ?>
+        <br><strong>Неверный логин!</strong><br>
+    <?php }
 } ?>
+
+<label for="psw">
+    <b>
+        <?php
+        if (isset($_GET['update_password'])) {
+            echo 'Old password';
+        } else {
+            echo 'Enter password';
+        } ?>
+    </b>
+</label>
+<input
+        type="password"
+        placeholder="<?php
+        if (isset($_GET['update_password'])) {
+            echo 'Enter Old password';
+        } else {
+            echo 'Enter password';
+        } ?>"
+        name="password"
+        required
+/>
+
+<?php
+if (isset($_GET['update_password'])) { ?>
+    <b> New Password </b>
+    <input
+            type="password"
+            placeholder="Enter New Password"
+            name="new_password"
+            required/>
+
+    <?php
+    if (!$user->isAuth()) { ?>
+        <br>
+        <b>Неверный пароль!</b>
+    <?php }
+}
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '/templates/auth/buttons.html';
+
+if (!isset($_GET['update_password'])) { ?>
+    <a href="?update_password=true"> Forgot password? </a>
+<?php } ?>
 
 </div>
 </form>
