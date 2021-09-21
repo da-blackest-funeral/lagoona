@@ -2,8 +2,8 @@
 
 class Db extends PDO {
 
-	/**
-	 * Думаю, что стоит вынести эти значения в отдельный файл config.php
+	/*
+	 * Думаю, что стоит вынести эти значения в отдельный файл php.ini
 	 */
 
 	private $hostname = 'localhost';
@@ -25,9 +25,10 @@ class Db extends PDO {
 		parent::__construct($this->dsn, $this->dbusername, $this->dbpass, $this::OPTIONS);
 	}
 
-	/* создать метод updateUserPassword($login) */
-
-	// Функция, записывающая логин и пароль пользователя в базу данных 
+    /**
+     * Функция которая регистрирует нового пользователя в базе данных
+     * @param User $user
+     */
 	public function doInserting(User $user) {
 		$querry = $this->prepare("INSERT INTO authinfo (login, password) VALUES (:login, :password)");
 
@@ -44,15 +45,18 @@ class Db extends PDO {
      * @param string $login
      * @return bool
 	 */
-	public function checkIfExists(string $login) {
+	public function checkIfExists(string $login) :bool {
 	 	$query = $this->prepare("SELECT * FROM authinfo WHERE login=?");
 	 	$query->execute([$login]);
 
 	 	return !empty($query->fetch());
-	} 
+	}
 
-	
-
+    /**
+     * Функция, которая изменяет пароль пользователя по логину
+     * @param string $login
+     * @param string $newPassword
+     */
 	public function updatePassword(string $login, string $newPassword) {
 		$query = $this->prepare("UPDATE authinfo SET password =:password WHERE login=:login");
 	 	$query->execute([

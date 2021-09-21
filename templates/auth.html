@@ -25,11 +25,11 @@
                 />
 
                 <?php
-                if (isset($_POST['login'])) {
-                if (!$db->checkExistingUser($_POST['login'])) { ?>
-                <br><strong>Неверный логин!<strong/><br>
-                <?php }
-                    } ?>
+                if (isset($user->login)) {
+                  if (!$db->checkIfExists($user->login)) { ?>
+                    <br><strong>Неверный логин!</strong><br>
+                  <?php }
+                } ?>
 
                 <label for="psw">
                     <b>
@@ -61,13 +61,13 @@
                         placeholder="Enter New Password"
                         name="new_password"
                         required/>
+                <?php } ?>
 
                 <?php
-                        if (!$user->isAuth()) { ?>
+                if (!$user->isAuth() && isset($user->password)) { ?>
                 <br>
                 <b>Неверный пароль!</b>
-                <?php }
-                    } ?>
+                <?php } ?>
 
                 <button type="submit">Login</button>
             </div>
