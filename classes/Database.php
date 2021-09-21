@@ -41,37 +41,38 @@ class Db extends PDO {
 	/**
 	 *  Функция проверяет, существует ли пользователь
 	 *  по заданному логину
+     * @param string $login
+     * @return bool
 	 */
-	public function checkExistingUser(string $login) { 
-	 	$querry = $this->prepare("SELECT * FROM authinfo WHERE login=?");
-	 	$querry->execute([$login]);
+	public function checkIfExists(string $login) {
+	 	$query = $this->prepare("SELECT * FROM authinfo WHERE login=?");
+	 	$query->execute([$login]);
 
-	 	return !empty($querry->fetch());
+	 	return !empty($query->fetch());
 	} 
 
-	/**
-	 *  Функция возвращает пароль уже зарегистрированного
-	 *  пользователя из базы данных 
-	 */
+	
 
-	public function updateUserPassword(string $login, string $newPassword) {
-		$querry = $this->prepare("UPDATE authinfo SET password =:password WHERE login=:login");
-	 	$querry->execute([
+	public function updatePassword(string $login, string $newPassword) {
+		$query = $this->prepare("UPDATE authinfo SET password =:password WHERE login=:login");
+	 	$query->execute([
 	 		'login' => $login,
 			'password' => password_hash($newPassword, PASSWORD_DEFAULT)
 	 	]);
 	}
 
-	/** 
-	 * 
-	 * */
+    /**
+     *  Функция возвращает хешированный пароль уже 
+     *  зарегистрированного пользователя из базы данных
+     *  @param string $login
+     *  @return string
+     */
+	public function getPassword(string $login) {
+		$query = $this->prepare("SELECT password FROM authinfo WHERE login=?");
+		$query->execute([$login]);
 
-	public function getUserPassword(string $login) { 
-		$querry = $this->prepare("SELECT password FROM authinfo WHERE login=?");
-		$querry->execute([$login]);
-
-		if ($this->checkExistingUser($login)) {
-			return $querry->fetchAll()[0]["password"];
+		if ($this->checkIfExists($login)) {
+			return $query->fetchAll()[0]["password"];
 		}
 	}
 }

@@ -4,9 +4,9 @@
   <meta charset="UTF-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="css/normalize.css"/>
-  <link rel="stylesheet" href="css/style.css"/>
-  <title>Федя обезьяна</title>
+  <link rel="stylesheet" href="templates/css/normalize.css">
+  <link rel="stylesheet" href="templates/css/style.css">
+  <title>Lagoona - сеть отелей</title>
 </head>
 <body class="bg-color">
 <header class="header">
@@ -18,10 +18,25 @@
       <a href="tel:+74953225448" class="header-top-number"
       >+7 495 322 54 48</a
       >
-      <a href="#" class="header-top-account">
+      <?php if (isset($_SESSION['is_auth']) && $_SESSION['is_auth']) { ?>
+      <a href="mypage.php" class="header-top-account">
         <span class="header-top-icon"> </span>
         <span class="header-account-text"> Личный кабинет </span>
       </a>
+      <a href="index.php?out=1" class="header-top-account">
+        <span class="header-top-icon"> </span>
+        <span class="header-account-text"> Выйти </span>
+      </a>
+      <?php } else { ?>
+      <a href="auth.php" class="header-top-account">
+        <span class="header-top-icon"> </span>
+        <span class="header-account-text"> Войти </span>
+      </a>
+      <a href="register.php" class="header-top-account">
+        <span class="header-top-icon"> </span>
+        <span class="header-account-text"> Регистрация </span>
+      </a>
+      <?php } ?>
     </div>
     <div class="header-bottom">
       <nav class="header-nav">
@@ -457,9 +472,9 @@
     <div class="container form-container">
       <h2 class="section-heading section-form-heading">Хочу тур</h2>
       <form
-          action="https://jsonplaceholder.typicode.com/posts"
-          class="section-form"
-          method="POST"
+              action="https://jsonplaceholder.typicode.com/posts"
+              class="section-form"
+              method="POST"
       >
         <div class="form-select-item">
           <label for="GET-city" class="form-label-name">Город вылета</label>
@@ -475,9 +490,9 @@
         <div class="form-select-item">
           <label for="GET-country" class="form-label-name">Страна</label>
           <select
-              name="country"
-              id="GET-country"
-              class="form-select-option"
+                  name="country"
+                  id="GET-country"
+                  class="form-select-option"
           >
             <option>Австралия</option>
             <option>Россия</option>
@@ -492,34 +507,34 @@
           >Дата прибытия</label
           >
           <input
-              name="date"
-              type="date"
-              id="GET-date"
-              class="form-input form-input-date"
-              required
+                  name="date"
+                  type="date"
+                  id="GET-date"
+                  class="form-input form-input-date"
+                  required
           />
         </div>
         <div class="splitter"></div>
         <div class="form-select-item">
           <label for="GET-nights" class="form-label-name">Ночей</label>
           <input
-              name="nights"
-              type="number"
-              id="GET-nights"
-              value="6"
-              class="form-input"
+                  name="nights"
+                  type="number"
+                  id="GET-nights"
+                  value="6"
+                  class="form-input"
           />
         </div>
         <div class="splitter"></div>
         <div class="form-select-item">
           <label for="GET-persons" class="form-label-name">Туристы</label>
           <input
-              name="tourists"
-              type="number"
-              id="GET-persons"
-              value="2"
-              class="form-input"
-              required
+                  name="tourists"
+                  type="number"
+                  id="GET-persons"
+                  value="2"
+                  class="form-input"
+                  required
           />
         </div>
         <div class="splitter"></div>
@@ -570,16 +585,16 @@
               </td>
               <td class="section-contacts-office-table-disc">
                 <a
-                    href="mailto:lg.oona@mail.ru"
-                    class="section-contacts-link"
+                        href="mailto:lg.oona@mail.ru"
+                        class="section-contacts-link"
                 >
                   lg.oona@mail.ru</a
                 ><br/><span class="section-contacts-text">
                         по вопросам бронирования</span
               >
                 <a
-                    href="mailto:hotels.ln@mail.ru"
-                    class="section-contacts-link"
+                        href="mailto:hotels.ln@mail.ru"
+                        class="section-contacts-link"
                 >
                   hotels.ln@mail.ru</a
                 ><br/><span class="section-contacts-text">
