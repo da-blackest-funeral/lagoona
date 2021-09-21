@@ -1,7 +1,6 @@
 <?php
 require_once dirname(__FILE__) . '/classes/User.php';
 require_once dirname(__FILE__) . '/classes/Database.php';
-require_once dirname(__FILE__) . '/classes/Printer.php';
 
 $db = new Db();
 $user = new User();
@@ -23,32 +22,95 @@ if (isset($_POST['new_password'])) {
     }
 }
 
-if (isset($user->password) && $user->auth($userRealPassword)) {
-    header("Location: index.php");
+if (isset($user->password) && $user->auth($userRealPassword) ) {
+        header("Location: index.php");
 }
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/lagona/templates/auth/top.html';
+?>
 
-if (isset($_POST['login'])) {
-    if (!$db->checkExistingUser($_POST['login'])) {
-        Printer::wrongLogin();
-    }
-}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="css/auth.css"/>
+    <title>Authentication</title>
+</head>
+<body>
+<main class="main">
+    <div class="form__container">
+        <form action="auth.php" method="post">
+            <div class="imgcontainer">
+                <img src="img/img_avatar2.png" alt="Avatar" class="avatar"/>
+            </div>
 
-Printer::passwordInput();
+            <div class="container">
+                <label for="login">
+                    <b> Login </b>
+                </label>
+                <input
+                        type="text"
+                        placeholder="Enter Login"
+                        name="login"
+                        required
+                />
 
-if (isset($_POST['password'])) {
-    Printer::wrongPassword();
-}
+                <?php
+                if (isset($_POST['login'])) {
+                if (!$db->checkExistingUser($_POST['login'])) { ?>
+                <br><strong>Неверный логин!<strong/><br>
+                    <?php }
+                    } ?>
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/lagona/templates/auth/buttons.html';
+                    <label for="psw">
+                        <b>
+                            <?php
+                            if (isset($_GET['update_password'])) {
+                                echo 'Old password';
+                            } else {
+                                echo 'Enter password';
+                            } ?>
+                        </b>
+                    </label>
+                    <input
+                            type="password"
+                            placeholder="<?php
+                            if (isset($_GET['update_password'])) {
+                                echo 'Enter Old password';
+                            } else {
+                                echo 'Enter password';
+                            } ?>"
+                            name="password"
+                            required
+                    />
 
-if (!isset($_GET['update_password'])) {
-    Printer::forgotPassword();
-} ?>
+                    <?php
+                    if (isset($_GET['update_password'])) { ?>
+                        <b> New Password </b>
+                        <input
+                                type="password"
+                                placeholder="Enter New Password"
+                                name="new_password"
+                                required/>
 
-</div>
-</form>
+                    <?php
+                        if (!$user->isAuth()) { ?>
+                        <br>
+                        <b>Неверный пароль!</b>
+                    <?php }
+                    } ?>
+
+                    <button type="submit">Login</button>
+            </div>
+            <div class="container" style="background-color: #f1f1f1">
+                <button type="button"
+                        class="cancelbtn"
+                        onclick="location.href='index.php'">Cancel
+                </button>
+                <?php if (!isset($_GET['update_password'])) { ?>
+                    <a href="?update_password=true"> Forgot password? </a>
+                <?php } ?>
+            </div>
+        </form>
 </main>
 </body>
 </html>
