@@ -1,6 +1,6 @@
 <?php
-require_once dirname(__FILE__) . '/classes/User.php';
-require_once dirname(__FILE__) . '/classes/Database.php';
+require_once __DIR__ . '/classes/User.php';
+require_once __DIR__ . '/classes/Database.php';
 
 $db = new Db();
 $user = new User();
@@ -25,4 +25,4 @@ if (isset($_POST['new_password'])) {
 if (isset($user->password) && $user->auth($realPassword) ) {
         header("Location: index.php");
 }
-require_once $_SERVER['DOCUMENT_ROOT'] . '/lagona/templates/auth.html';
+require_once __DIR__ . '/templates/auth.html';

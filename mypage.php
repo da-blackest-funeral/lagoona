@@ -1,6 +1,6 @@
 <?php
-require_once dirname(__FILE__) . '/classes/User.php';
-require_once dirname(__FILE__) . '/classes/Database.php';
+require_once __DIR__ . '/classes/User.php';
+require_once __DIR__ . '/classes/Database.php';
 
 $user = new User();
 $db = new Db();
@@ -18,4 +18,4 @@ if (isset($_POST['new_password'])) {
     }
 }
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/lagona/templates/mypage.html';
+require_once __DIR__ . '/templates/mypage.html';
