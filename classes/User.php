@@ -3,8 +3,8 @@ session_start();
 
 class User {
 
-	public $login;
-	public $password;
+	private $login;
+	private $password;
 
 	public function __construct() {
 
@@ -18,21 +18,17 @@ class User {
 	}
 
 	/**
-     * Проверяет, авторизован пользователь или нет
-     * Возвращает true если авторизован, иначе false
+     * Проверяет, авторизован ли пользователь
      * @return boolean 
      */
     public function isAuth() {
-        if (isset($_SESSION["is_auth"])) { 
-            return $_SESSION["is_auth"]; 
-        }
-        else return false; 
+        return $_SESSION["is_auth"] ?? false;
     }
 
     /**
      * Создание сессии и авторизация пользователя
      * @param string $userRealPassword - хешированный пароль
-     * пользователя из базы данных
+     * пользователя
      */
     public function auth(string $userRealPassword = NULL) {
         if (isset($userRealPassword)) {
@@ -51,12 +47,11 @@ class User {
     }
      
     /**
-     * Метод возвращает логин авторизованного пользователя
      * @return string
      */
     public function getLogin() {
-        if ($this->isAuth()) { //Если пользователь авторизован
-            return $_SESSION["login"]; //Возвращаем логин, который записан в сессию
+        if ($this->isAuth()) { 
+            return $_SESSION["login"];
         }
     }
 
@@ -64,7 +59,7 @@ class User {
      * Завершает сессию
      */
     public function out() {
-        $_SESSION = array(); //Очищаем сессию
-        session_destroy(); //Уничтожаем
+        $_SESSION = array(); 
+        session_destroy(); 
     }
 }
