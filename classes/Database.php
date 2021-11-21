@@ -2,10 +2,6 @@
 
 class Db extends PDO {
 
-	/*
-	 * Думаю, что стоит вынести эти значения в отдельный файл php.ini
-	 */
-
 	private $hostname = 'localhost';
 	private $dbusername = 'root';
     private $dbpass = '';
